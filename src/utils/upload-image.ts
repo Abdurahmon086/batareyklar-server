@@ -20,7 +20,6 @@ export const fileFilter = (req, file, cb) => {
 
 export const deleteImage = async (imagePath: string) => {
   const filePath = path.join('uploads', imagePath);
-  console.log(filePath);
   try {
     return await fs.promises.unlink(filePath);
   } catch (err) {

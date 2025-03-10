@@ -12,8 +12,8 @@ import {
 import { IResponseInfo } from 'src/types';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { fileFilter, storage } from 'src/utils/upload-image';
-import { PartnersService } from './partners.service';
-import { Partners } from './partners.entity';
+import { PartnersService } from './maps.service';
+import { Partners } from './maps.entity';
 
 @Controller('partners')
 export class PartnersController {
