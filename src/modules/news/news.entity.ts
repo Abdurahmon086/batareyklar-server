@@ -10,8 +10,8 @@ export class News {
 
   @Column()
   description: string;
-  
-  @Column()
+
+  @Column({ nullable: true })
   image: string;
 
   @Column({ default: true })

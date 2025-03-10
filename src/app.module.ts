@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
 import { HeroModule } from './modules/hero/hero.module';
+import { NewsModule } from './modules/news/news.module';
+import { PartnersModule } from './modules/partners/partners.module';
 
 @Module({
   imports: [
@@ -18,8 +19,10 @@ import { HeroModule } from './modules/hero/hero.module';
       synchronize: true,
     }),
     HeroModule,
+    NewsModule,
+    PartnersModule,
   ],
-  controllers: [AppController], 
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
