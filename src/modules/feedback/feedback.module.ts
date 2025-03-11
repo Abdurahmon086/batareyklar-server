@@ -9,4 +9,4 @@ import { Feedback } from './feedback.entity';
   providers: [FeedbackService],
   controllers: [FeedbackController],
 })
-export class PartnersModule {}
+export class FeedbackModule {}

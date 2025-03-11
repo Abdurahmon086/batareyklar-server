@@ -10,63 +10,61 @@ import {
   UploadedFile,
 } from '@nestjs/common';
 import { IResponseInfo } from 'src/types';
-import { NewsService } from './news.service';
-import { News } from './news.entity';
+import { UserService } from './user.service';
+import { User } from './user.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { fileFilter, storage } from 'src/utils/upload-image';
 
-@Controller('news')
-export class NewsController {
-  constructor(private readonly newService: NewsService) {}
+@Controller('user')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
 
   @Get()
-  async getAll(): Promise<IResponseInfo<News[]>> {
-    return this.newService.getAll();
+  async getAll(): Promise<IResponseInfo<User[]>> {
+    return this.userService.getAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<IResponseInfo<News>> {
-    return this.newService.getOne(Number(id));
+  async findOne(@Param('id') id: string): Promise<IResponseInfo<User>> {
+    return this.userService.getOne(Number(id));
   }
 
   @Post()
   @UseInterceptors(
     FileInterceptor('image', {
-      dest: 'uploads/news',
+      dest: 'uploads/user',
       fileFilter: fileFilter,
       storage: storage,
     }),
   )
   async create(
-    @Body() newsData: Partial<News>,
+    @Body() userData: Partial<User>,
     @UploadedFile() file: Express.Multer.File,
-  ): Promise<IResponseInfo<News>> {
-    console.log('asd');
-
-    return this.newService.create({ ...newsData, image: file.filename });
+  ): Promise<IResponseInfo<User>> {
+    return this.userService.create({ ...userData, image: file.filename });
   }
 
   @Put(':id')
   @UseInterceptors(
     FileInterceptor('image', {
-      dest: 'uploads/news',
+      dest: 'uploads/user',
       fileFilter: fileFilter,
       storage: storage,
     }),
   )
   async update(
     @Param('id') id: string,
-    @Body() newsData: Partial<News>,
+    @Body() userData: Partial<User>,
     @UploadedFile() file: Express.Multer.File,
-  ): Promise<IResponseInfo<News>> {
-    return this.newService.update(Number(id), {
-      ...newsData,
+  ): Promise<IResponseInfo<User>> {
+    return this.userService.update(Number(id), {
+      ...userData,
       image: file.filename,
     });
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<IResponseInfo<boolean>> {
-    return this.newService.remove(Number(id));
+    return this.userService.remove(Number(id));
   }
 }

@@ -2,59 +2,58 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IResponseInfo } from 'src/types';
-import { News } from './news.entity';
+import { User } from './user.entity';
 import { deleteImage } from 'src/utils/upload-image';
 
 @Injectable()
-export class NewsService {
+export class UserService {
   constructor(
-    @InjectRepository(News)
-    private readonly newsRepository: Repository<News>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
-  async getAll(): Promise<IResponseInfo<News[]>> {
+  async getAll(): Promise<IResponseInfo<User[]>> {
     try {
-      const news = await this.newsRepository.find();
-      return { status: 200, data: news, message: 'Success' };
+      const user = await this.userRepository.find();
+      return { status: 200, data: user, message: 'Success' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };
     }
   }
 
-  async getOne(id: number): Promise<IResponseInfo<News>> {
+  async getOne(id: number): Promise<IResponseInfo<User>> {
     try {
-      const news = await this.newsRepository.findOneBy({ id });
-      if (!news) throw new NotFoundException(`News with id: ${id} not found`);
-      return { status: 200, data: news, message: 'Success' };
+      const user = await this.userRepository.findOneBy({ id });
+      if (!user) throw new NotFoundException(`user with id: ${id} not found`);
+      return { status: 200, data: user, message: 'Success' };
     } catch (error) {
       const status = error instanceof NotFoundException ? 404 : 500;
       return { status, data: null, message: error.message };
     }
   }
 
-  async create(newsData: Partial<News>): Promise<IResponseInfo<News>> {
+  async create(userData: Partial<User>): Promise<IResponseInfo<User>> {
     try {
-      const news = await this.newsRepository.save(
-        this.newsRepository.create(newsData),
+      const user = await this.userRepository.save(
+        this.userRepository.create(userData),
       );
-      return { status: 201, data: news, message: 'Created' };
+      return { status: 201, data: user, message: 'Created' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };
     }
   }
 
-  async update(id: number, data: Partial<News>): Promise<IResponseInfo<News>> {
+  async update(id: number, data: Partial<User>): Promise<IResponseInfo<User>> {
     try {
       const result = await this.getOne(id);
-      if (result.status !== 200) return result as IResponseInfo<News>;
+      if (result.status !== 200) return result as IResponseInfo<User>;
 
       if (result.data?.image) {
         console.log(result.data?.image);
-        deleteImage(`/news/${result.data.image}`);
+        deleteImage(`/user/${result.data.image}`);
       }
 
-      const updated = await this.newsRepository.save({
-        
+      const updated = await this.userRepository.save({
         ...result.data,
         ...data,
       });
@@ -72,8 +71,8 @@ export class NewsService {
       }
 
       if (result.data) {
-        deleteImage(`/news/${result.data.image}`);
-        await this.newsRepository.remove(result.data);
+        deleteImage(`/user/${result.data.image}`);
+        await this.userRepository.remove(result.data);
       }
       return { status: 200, data: true, message: 'Deleted' };
     } catch (error) {

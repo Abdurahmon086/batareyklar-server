@@ -9,4 +9,4 @@ import { Contribution } from './contribution.entity';
   providers: [ContributionService],
   controllers: [ContributionController],
 })
-export class CounterModule {}
+export class ContributionModule {}

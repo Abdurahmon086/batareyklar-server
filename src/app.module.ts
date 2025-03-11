@@ -5,6 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HeroModule } from './modules/hero/hero.module';
 import { NewsModule } from './modules/news/news.module';
 import { PartnersModule } from './modules/partners/partners.module';
+import { FeedbackModule } from './modules/feedback/feedback.module';
+import { TeamModule } from './modules/team/team.module';
+import { CounterModule } from './modules/counter/counter.module';
+import { ContributionModule } from './modules/contribution/contribution.module';
 
 @Module({
   imports: [
@@ -21,6 +25,10 @@ import { PartnersModule } from './modules/partners/partners.module';
     HeroModule,
     NewsModule,
     PartnersModule,
+    FeedbackModule,
+    TeamModule,
+    CounterModule,
+    ContributionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
