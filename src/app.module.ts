@@ -9,6 +9,8 @@ import { FeedbackModule } from './modules/feedback/feedback.module';
 import { TeamModule } from './modules/team/team.module';
 import { CounterModule } from './modules/counter/counter.module';
 import { ContributionModule } from './modules/contribution/contribution.module';
+import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { ContributionModule } from './modules/contribution/contribution.module';
     TeamModule,
     CounterModule,
     ContributionModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
