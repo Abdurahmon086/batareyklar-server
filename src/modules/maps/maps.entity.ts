@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Partners {
+export class Map {
   @PrimaryGeneratedColumn()
   id: number;
 
