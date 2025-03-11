@@ -17,16 +17,16 @@ import { Partners } from './maps.entity';
 
 @Controller('partners')
 export class PartnersController {
-  constructor(private readonly partnerservice: PartnersService) {}
+  constructor(private readonly partnerService: PartnersService) {}
 
   @Get()
   async getAll(): Promise<IResponseInfo<Partners[]>> {
-    return this.partnerservice.getAll();
+    return this.partnerService.getAll();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<IResponseInfo<Partners>> {
-    return this.partnerservice.getOne(Number(id));
+    return this.partnerService.getOne(Number(id));
   }
 
   @Post()
@@ -41,7 +41,7 @@ export class PartnersController {
     @Body() partnersData: Partial<Partners>,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<IResponseInfo<Partners>> {
-    return this.partnerservice.create({
+    return this.partnerService.create({
       ...partnersData,
       image: file.filename,
     });
@@ -52,11 +52,11 @@ export class PartnersController {
     @Param('id') id: string,
     @Body() userData: Partial<Partners>,
   ): Promise<IResponseInfo<Partners>> {
-    return this.partnerservice.update(Number(id), userData);
+    return this.partnerService.update(Number(id), userData);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<IResponseInfo<boolean>> {
-    return this.partnerservice.remove(Number(id));
+    return this.partnerService.remove(Number(id));
   }
 }

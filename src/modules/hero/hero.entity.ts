@@ -12,13 +12,31 @@ export class Hero {
   id: number;
 
   @Column()
-  subTitle: string;
+  subTitle_uz: string;
+
+  @Column({ default: '' })
+  subTitle_kr: string;
+
+  @Column({ default: '' })
+  subTitle_en: string;
 
   @Column()
-  title: string;
+  title_uz: string;
+
+  @Column({ default: '' })
+  title_kr: string;
+
+  @Column({ default: '' })
+  title_en: string;
 
   @Column()
-  description: string;
+  description_uz: string;
+
+  @Column({ default: '' })
+  description_kr: string;
+
+  @Column({ default: '' })
+  description_en: string;
 
   @Column({ default: true })
   isActive: boolean;

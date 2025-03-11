@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class News {
@@ -6,10 +12,22 @@ export class News {
   id: number;
 
   @Column()
-  title: string;
+  title_uz: string;
+
+  @Column({ default: '' })
+  title_kr: string;
+
+  @Column({ default: '' })
+  title_en: string;
 
   @Column()
-  description: string;
+  description_uz: string;
+
+  @Column({ default: '' })
+  description_kr: string;
+
+  @Column({ default: '' })
+  description_en: string;
 
   @Column({ nullable: true })
   image: string;

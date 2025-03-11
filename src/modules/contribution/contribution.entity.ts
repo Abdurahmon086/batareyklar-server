@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Partners {
+export class Contribution {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,18 +22,12 @@ export class Partners {
 
   @Column()
   description_uz: string;
-
+  
   @Column({ default: '' })
   description_kr: string;
-
+  
   @Column({ default: '' })
   description_en: string;
-
-  @Column({ nullable: true })
-  image: string;
-
-  @Column({ default: true })
-  isActive: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
