@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { IResponseInfo } from 'src/types';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { fileFilter, storage } from 'src/utils/upload-image';
+import { storage } from 'src/utils/upload-image';
 import { FeedbackService } from './feedback.service';
 import { Feedback } from './feedback.entity';
 
@@ -30,13 +30,7 @@ export class FeedbackController {
   }
 
   @Post()
-  @UseInterceptors(
-    FileInterceptor('image', {
-      dest: 'uploads/feedback',
-      fileFilter: fileFilter,
-      storage: storage,
-    }),
-  )
+  @UseInterceptors(FileInterceptor('image', storage))
   async create(
     @Body() feedbackData: Partial<Feedback>,
     @UploadedFile() file: Express.Multer.File,

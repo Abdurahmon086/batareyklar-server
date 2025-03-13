@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { IResponseInfo } from 'src/types';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { fileFilter, storage } from 'src/utils/upload-image';
+import { storage } from 'src/utils/upload-image';
 import { TeamService } from './team.service';
 import { Team } from './team.entity';
 
@@ -30,13 +30,7 @@ export class TeamController {
   }
 
   @Post()
-  @UseInterceptors(
-    FileInterceptor('image', {
-      dest: 'uploads/team',
-      fileFilter: fileFilter,
-      storage: storage,
-    }),
-  )
+  @UseInterceptors(FileInterceptor('image', storage))
   async create(
     @Body() teamData: Partial<Team>,
     @UploadedFile() file: Express.Multer.File,

@@ -2,20 +2,27 @@ import { diskStorage } from 'multer';
 import * as path from 'path';
 import * as fs from 'fs';
 
-export const storage = diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, `uploads/${req.path.split('/')[1]}`);
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '.' + file.originalname.split('.')[1]);
-  },
-});
+import { v4 as uuidv4 } from 'uuid';
+import { extname } from 'path';
 
-export const fileFilter = (req, file, cb) => {
-  if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-    return cb(new Error('Faqat rasmlar!'), false);
-  }
-  cb(null, true);
+export const storage = {
+  storage: diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, `uploads/${req.path.split('/')[1]}`);
+    },
+    filename: (req, file, cb) => {
+      const randomName = `${uuidv4()}${extname(file.originalname)}`;
+      cb(null, randomName);
+    },
+  }),
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Faqat rasm formatlari ruxsat etilgan!'), false);
+    }
+  },
 };
 
 export const deleteImage = async (imagePath: string) => {
