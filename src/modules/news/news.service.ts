@@ -49,12 +49,10 @@ export class NewsService {
       if (result.status !== 200) return result as IResponseInfo<News>;
 
       if (result.data?.image) {
-        console.log(result.data?.image);
         deleteImage(`/news/${result.data.image}`);
       }
 
       const updated = await this.newsRepository.save({
-        
         ...result.data,
         ...data,
       });

@@ -8,5 +8,6 @@ import { NewsController } from './news.controller';
   imports: [TypeOrmModule.forFeature([News])],
   providers: [NewsService],
   controllers: [NewsController],
+  exports: [NewsService],
 })
 export class NewsModule {}

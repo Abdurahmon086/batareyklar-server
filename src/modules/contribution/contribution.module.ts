@@ -8,5 +8,6 @@ import { Contribution } from './contribution.entity';
   imports: [TypeOrmModule.forFeature([Contribution])],
   providers: [ContributionService],
   controllers: [ContributionController],
+  exports: [ContributionService],
 })
 export class ContributionModule {}

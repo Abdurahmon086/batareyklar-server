@@ -8,5 +8,6 @@ import { Map } from './maps.entity';
   imports: [TypeOrmModule.forFeature([Map])],
   providers: [MapService],
   controllers: [MapController],
+  exports: [MapService],
 })
 export class MapModule {}

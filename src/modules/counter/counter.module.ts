@@ -8,5 +8,6 @@ import { Counter } from './counter.entity';
   imports: [TypeOrmModule.forFeature([Counter])],
   providers: [CounterService],
   controllers: [CounterController],
+  exports: [CounterService],
 })
 export class CounterModule {}

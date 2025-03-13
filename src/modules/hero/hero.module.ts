@@ -8,5 +8,6 @@ import { HeroService } from './hero.service';
   imports: [TypeOrmModule.forFeature([Hero])],
   providers: [HeroService],
   controllers: [HeroController],
+  exports: [HeroService],
 })
 export class HeroModule {}

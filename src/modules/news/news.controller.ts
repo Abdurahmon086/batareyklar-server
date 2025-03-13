@@ -41,8 +41,6 @@ export class NewsController {
     @Body() newsData: Partial<News>,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<IResponseInfo<News>> {
-    console.log('asd');
-
     return this.newService.create({ ...newsData, image: file.filename });
   }
 

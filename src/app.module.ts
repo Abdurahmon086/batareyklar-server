@@ -11,6 +11,14 @@ import { CounterModule } from './modules/counter/counter.module';
 import { ContributionModule } from './modules/contribution/contribution.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { HeroService } from './modules/hero/hero.service';
+import { NewsService } from './modules/news/news.service';
+import { PartnersService } from './modules/partners/partners.service';
+import { FeedbackService } from './modules/feedback/feedback.service';
+import { TeamService } from './modules/team/team.service';
+import { CounterService } from './modules/counter/counter.service';
+import { ContributionService } from './modules/contribution/contribution.service';
+import { MapModule } from './modules/maps/maps.module';
 
 @Module({
   imports: [
@@ -31,6 +39,7 @@ import { AuthModule } from './modules/auth/auth.module';
     TeamModule,
     CounterModule,
     ContributionModule,
+    MapModule,
     UserModule,
     AuthModule,
   ],

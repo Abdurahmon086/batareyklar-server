@@ -4,7 +4,6 @@ import * as fs from 'fs';
 
 export const storage = diskStorage({
   destination: (req, file, cb) => {
-    console.log(req.path.split('/')[1]);
     cb(null, `uploads/${req.path.split('/')[1]}`);
   },
   filename: (req, file, cb) => {
