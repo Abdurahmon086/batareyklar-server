@@ -61,11 +61,11 @@ export class NewsController {
   async update(
     @Param('id') id: string,
     @Body() newsData: Partial<News>,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file?: Express.Multer.File,
   ): Promise<IResponseInfo<News>> {
     return this.newService.update(Number(id), {
       ...newsData,
-      image: file.filename,
+      image: file?.filename,
     });
   }
 

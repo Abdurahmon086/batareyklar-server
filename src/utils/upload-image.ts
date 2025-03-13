@@ -28,7 +28,7 @@ export const storage = {
 export const deleteImage = async (imagePath: string) => {
   const filePath = path.join('uploads', imagePath);
   try {
-    return await fs.promises.unlink(filePath);
+    return await fs.unlinkSync(filePath);
   } catch (err) {
     throw new Error(`File deletion failed: ${err.message}`);
   }
