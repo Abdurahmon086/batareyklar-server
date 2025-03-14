@@ -24,7 +24,8 @@ export class PartnersService {
   async getOne(id: number): Promise<IResponseInfo<Partners>> {
     try {
       const partners = await this.partnersRepository.findOneBy({ id });
-      if (!partners) throw new NotFoundException(`partners with id: ${id} not found`);
+      if (!partners)
+        throw new NotFoundException(`partners with id: ${id} not found`);
       return { status: 200, data: partners, message: 'Success' };
     } catch (error) {
       const status = error instanceof NotFoundException ? 404 : 500;
@@ -32,10 +33,18 @@ export class PartnersService {
     }
   }
 
-  async create(partnersData: Partial<Partners>): Promise<IResponseInfo<Partners>> {
+  async create(
+    partnersData: Partial<Partners>,
+  ): Promise<IResponseInfo<Partners>> {
     try {
       const partners = await this.partnersRepository.save(
-        this.partnersRepository.create(partnersData),
+        this.partnersRepository.create({
+          ...partnersData,
+          isActive:
+            typeof partnersData.isActive === 'string'
+              ? partnersData.isActive === 'true'
+              : partnersData.isActive,
+        }),
       );
       return { status: 201, data: partners, message: 'Created' };
     } catch (error) {
@@ -43,15 +52,27 @@ export class PartnersService {
     }
   }
 
-  async update(id: number, data: Partial<Partners>): Promise<IResponseInfo<Partners>> {
+  async update(
+    id: number,
+    data: Partial<Partners>,
+  ): Promise<IResponseInfo<Partners>> {
     try {
       const result = await this.getOne(id);
       if (result.status !== 200) return result as IResponseInfo<Partners>;
 
+      if (data.image && result.data?.image) {
+        deleteImage(`/partners/${result.data.image}`);
+      }
       const updated = await this.partnersRepository.save({
         ...result.data,
         ...data,
+        isActive:
+          typeof data.isActive === 'string'
+            ? data.isActive === 'true'
+            : data.isActive,
+        image: data.image || result.data?.image,
       });
+      
       return { status: 200, data: updated, message: 'Updated' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };
