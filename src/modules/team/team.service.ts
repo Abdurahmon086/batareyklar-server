@@ -55,7 +55,7 @@ export class TeamService {
       if (result.status !== 200) return result as IResponseInfo<Team>;
 
       if (data.image && result.data?.image) {
-        deleteImage(`/news/${result.data.image}`);
+        deleteImage(`/team/${result.data.image}`);
       }
 
       const updated = await this.teamRepository.save({

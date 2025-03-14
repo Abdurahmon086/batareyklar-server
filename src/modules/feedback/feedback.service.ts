@@ -61,7 +61,7 @@ export class FeedbackService {
       if (result.status !== 200) return result as IResponseInfo<Feedback>;
 
       if (data.image && result.data?.image) {
-        deleteImage(`/news/${result.data.image}`);
+        deleteImage(`/feedback/${result.data.image}`);
       }
 
       const updated = await this.feedbackRepository.save({
