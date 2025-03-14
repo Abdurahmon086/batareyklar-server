@@ -8,12 +8,16 @@ import {
   Param,
   UseInterceptors,
   UploadedFile,
+  Res,
 } from '@nestjs/common';
 import { IResponseInfo } from 'src/types';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { storage } from 'src/utils/upload-image';
 import { TeamService } from './team.service';
 import { Team } from './team.entity';
+import { existsSync } from 'fs';
+import { join } from 'path';
+import { Response } from 'express';
 
 @Controller('team')
 export class TeamController {
@@ -29,6 +33,20 @@ export class TeamController {
     return this.teamService.getOne(Number(id));
   }
 
+  @Get('images/:imageName')
+  async seeUploadedFile(
+    @Param('imageName') imageName: string,
+    @Res() res: Response,
+  ) {
+    const filePath = join(__dirname, '..', 'uploads', 'team', imageName);
+
+    if (!existsSync(filePath)) {
+      return res.status(404).send('Fayl topilmadi');
+    }
+
+    res.sendFile(filePath);
+  }
+
   @Post()
   @UseInterceptors(FileInterceptor('image', storage))
   async create(
@@ -42,11 +60,16 @@ export class TeamController {
   }
 
   @Put(':id')
+  @UseInterceptors(FileInterceptor('image', storage))
   async update(
     @Param('id') id: string,
-    @Body() userData: Partial<Team>,
+    @Body() teamData: Partial<Team>,
+    @UploadedFile() file?: Express.Multer.File,
   ): Promise<IResponseInfo<Team>> {
-    return this.teamService.update(Number(id), userData);
+    return this.teamService.update(Number(id), {
+      ...teamData,
+      image: file?.filename,
+    });
   }
 
   @Delete(':id')

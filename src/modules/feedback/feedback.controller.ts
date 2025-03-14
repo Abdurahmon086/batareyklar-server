@@ -8,12 +8,16 @@ import {
   Param,
   UseInterceptors,
   UploadedFile,
+  Res,
 } from '@nestjs/common';
 import { IResponseInfo } from 'src/types';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { storage } from 'src/utils/upload-image';
 import { FeedbackService } from './feedback.service';
 import { Feedback } from './feedback.entity';
+import { Response } from 'express';
+import { join } from 'path';
+import { existsSync } from 'fs';
 
 @Controller('feedback')
 export class FeedbackController {
@@ -29,6 +33,20 @@ export class FeedbackController {
     return this.feedbackService.getOne(Number(id));
   }
 
+  @Get('images/:imageName')
+  async seeUploadedFile(
+    @Param('imageName') imageName: string,
+    @Res() res: Response,
+  ) {
+    const filePath = join(__dirname, '..', 'uploads', 'team', imageName);
+
+    if (!existsSync(filePath)) {
+      return res.status(404).send('Fayl topilmadi');
+    }
+
+    res.sendFile(filePath);
+  }
+
   @Post()
   @UseInterceptors(FileInterceptor('image', storage))
   async create(
@@ -42,11 +60,16 @@ export class FeedbackController {
   }
 
   @Put(':id')
+  @UseInterceptors(FileInterceptor('image', storage))
   async update(
     @Param('id') id: string,
-    @Body() userData: Partial<Feedback>,
+    @Body() feedbackData: Partial<Feedback>,
+    @UploadedFile() file?: Express.Multer.File,
   ): Promise<IResponseInfo<Feedback>> {
-    return this.feedbackService.update(Number(id), userData);
+    return this.feedbackService.update(Number(id), {
+      ...feedbackData,
+      image: file?.filename,
+    });
   }
 
   @Delete(':id')

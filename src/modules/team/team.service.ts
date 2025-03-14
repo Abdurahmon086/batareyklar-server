@@ -35,7 +35,13 @@ export class TeamService {
   async create(teamData: Partial<Team>): Promise<IResponseInfo<Team>> {
     try {
       const team = await this.teamRepository.save(
-        this.teamRepository.create(teamData),
+        this.teamRepository.create({
+          ...teamData,
+          isActive:
+            typeof teamData.isActive === 'string'
+              ? teamData.isActive === 'true'
+              : teamData.isActive,
+        }),
       );
       return { status: 201, data: team, message: 'Created' };
     } catch (error) {
@@ -48,9 +54,18 @@ export class TeamService {
       const result = await this.getOne(id);
       if (result.status !== 200) return result as IResponseInfo<Team>;
 
+      if (data.image && result.data?.image) {
+        deleteImage(`/news/${result.data.image}`);
+      }
+
       const updated = await this.teamRepository.save({
         ...result.data,
         ...data,
+        isActive:
+          typeof data.isActive === 'string'
+            ? data.isActive === 'true'
+            : data.isActive,
+        image: data.image || result.data?.image,
       });
       return { status: 200, data: updated, message: 'Updated' };
     } catch (error) {

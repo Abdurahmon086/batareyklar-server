@@ -38,7 +38,13 @@ export class FeedbackService {
   ): Promise<IResponseInfo<Feedback>> {
     try {
       const feedback = await this.feedbackRepository.save(
-        this.feedbackRepository.create(feedbackData),
+        this.feedbackRepository.create({
+          ...feedbackData,
+          isActive:
+            typeof feedbackData.isActive === 'string'
+              ? feedbackData.isActive === 'true'
+              : feedbackData.isActive,
+        }),
       );
       return { status: 201, data: feedback, message: 'Created' };
     } catch (error) {
@@ -54,9 +60,18 @@ export class FeedbackService {
       const result = await this.getOne(id);
       if (result.status !== 200) return result as IResponseInfo<Feedback>;
 
+      if (data.image && result.data?.image) {
+        deleteImage(`/news/${result.data.image}`);
+      }
+
       const updated = await this.feedbackRepository.save({
         ...result.data,
         ...data,
+        isActive:
+          typeof data.isActive === 'string'
+            ? data.isActive === 'true'
+            : data.isActive,
+        image: data.image || result.data?.image,
       });
       return { status: 200, data: updated, message: 'Updated' };
     } catch (error) {
