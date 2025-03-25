@@ -6,6 +6,7 @@ import {
   Delete,
   Body,
   Param,
+  Res,
 } from '@nestjs/common';
 import { HeroService } from './hero.service';
 import { Hero } from './hero.entity';

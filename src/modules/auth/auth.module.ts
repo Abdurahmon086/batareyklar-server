@@ -10,7 +10,7 @@ import { JwtModule } from '@nestjs/jwt';
     JwtModule.register({
       global: true,
       secret: process.env.JWT_CONSTANTS || 'DO NOT USE THIS VALUE BATAREY',
-      signOptions: { expiresIn: '6000s' },
+      signOptions: { expiresIn: 60 * 60 * 24 * 7 },
     }),
   ],
   providers: [AuthService],

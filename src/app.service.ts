@@ -34,14 +34,14 @@ export class AppService {
       const team = await this.teamService.getAll();
 
       const data = {
-        hero: hero ?? null,
-        map: map ?? null,
-        news: news ?? null,
-        counter: counter ?? null,
-        partners: partners ?? null,
-        contribution: contribution ?? null,
-        feedback: feedback ?? null,
-        team: team ?? null,
+        hero: hero.data ?? null,
+        map: map.data ?? null,
+        news: news.data ?? null,
+        counter: counter.data ?? null,
+        partners: partners.data ?? null,
+        contribution: contribution.data ?? null,
+        feedback: feedback.data ?? null,
+        team: team.data ?? null,
       };
 
       return { status: 200, data, message: 'Success' };

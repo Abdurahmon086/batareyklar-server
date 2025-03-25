@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -19,6 +24,7 @@ import { TeamService } from './modules/team/team.service';
 import { CounterService } from './modules/counter/counter.service';
 import { ContributionService } from './modules/contribution/contribution.service';
 import { MapModule } from './modules/maps/maps.module';
+import { AuthMiddleware } from './middleware/auth.middleware';
 
 @Module({
   imports: [
@@ -46,6 +52,11 @@ import { MapModule } from './modules/maps/maps.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  // constructor(private dataSource: DataSource) {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .exclude({ path: '/', method: RequestMethod.ALL })
+      .forRoutes('*');
+  }
 }
