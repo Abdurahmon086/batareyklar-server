@@ -25,6 +25,8 @@ import { CounterService } from './modules/counter/counter.service';
 import { ContributionService } from './modules/contribution/contribution.service';
 import { MapModule } from './modules/maps/maps.module';
 import { AuthMiddleware } from './middleware/auth.middleware';
+import { TelegramModule } from './modules/telegram/telegram.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -38,6 +40,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    ConfigModule.forRoot({ isGlobal: true }),
     HeroModule,
     NewsModule,
     PartnersModule,
@@ -48,6 +51,7 @@ import { AuthMiddleware } from './middleware/auth.middleware';
     MapModule,
     UserModule,
     AuthModule,
+    TelegramModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -58,6 +62,7 @@ export class AppModule implements NestModule {
       .apply(AuthMiddleware)
       .exclude(
         { path: '/', method: RequestMethod.ALL },
+        { path: '/telegram/*', method: RequestMethod.ALL },
         { path: '/auth/*', method: RequestMethod.ALL },
       )
       .forRoutes('*');
