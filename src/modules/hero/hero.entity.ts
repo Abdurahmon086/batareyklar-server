@@ -15,7 +15,7 @@ export class Hero {
   subTitle_uz: string;
 
   @Column({ default: '' })
-  subTitle_kr: string;
+  subtitle_ru: string;
 
   @Column({ default: '' })
   subTitle_en: string;
@@ -24,7 +24,7 @@ export class Hero {
   title_uz: string;
 
   @Column({ default: '' })
-  title_kr: string;
+  title_ru: string;
 
   @Column({ default: '' })
   title_en: string;
@@ -33,7 +33,7 @@ export class Hero {
   description_uz: string;
 
   @Column({ default: '' })
-  description_kr: string;
+  description_ru: string;
 
   @Column({ default: '' })
   description_en: string;

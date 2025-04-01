@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Put, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Body,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { IResponseInfo } from 'src/types';
 import { MapService } from './maps.service';
 import { Map } from './maps.entity';
@@ -8,6 +16,11 @@ export class MapController {
   constructor(private readonly mapService: MapService) {}
 
   @Get()
+  async getAllMap(): Promise<IResponseInfo<Map[]>> {
+    return this.mapService.getAllMap();
+  }
+
+  @Get('/cities')
   async getAll(): Promise<IResponseInfo<Map[]>> {
     return this.mapService.getAll();
   }
@@ -28,5 +41,10 @@ export class MapController {
     @Body() userData: Partial<Map>,
   ): Promise<IResponseInfo<Map>> {
     return this.mapService.update(Number(id), userData);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<IResponseInfo<boolean>> {
+    return this.mapService.remove(Number(id));
   }
 }

@@ -25,7 +25,7 @@ export class AppService {
   async getHemo(): Promise<IResponseInfo<Object>> {
     try {
       const hero = await this.heroService.getAll();
-      const map = await this.mapService.getAll();
+      const map = await this.mapService.getAllMap();
       const news = await this.newsService.getAll();
       const counter = await this.counterService.getAll();
       const partners = await this.partnersService.getAll();

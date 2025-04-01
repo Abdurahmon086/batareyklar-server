@@ -38,7 +38,7 @@ export class PartnersController {
     @Param('imageName') imageName: string,
     @Res() res: Response,
   ) {
-    const filePath = join(__dirname, '..', 'uploads', 'team', imageName);
+    const filePath = join(__dirname, '..', 'uploads', 'partners', imageName);
 
     if (!existsSync(filePath)) {
       return res.status(404).send('Fayl topilmadi');
@@ -64,11 +64,11 @@ export class PartnersController {
   async update(
     @Param('id') id: string,
     @Body() partnersData: Partial<Partners>,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file?: Express.Multer.File,
   ): Promise<IResponseInfo<Partners>> {
     return this.partnerservice.update(Number(id), {
       ...partnersData,
-      image: file.filename,
+      image: file?.filename,
     });
   }
 

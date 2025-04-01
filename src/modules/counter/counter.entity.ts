@@ -15,7 +15,7 @@ export class Counter {
   title_uz: string;
 
   @Column({ default: '' })
-  title_kr: string;
+  title_ru: string;
 
   @Column({ default: '' })
   title_en: string;

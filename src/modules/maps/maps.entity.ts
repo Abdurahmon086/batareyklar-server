@@ -12,13 +12,34 @@ export class Map {
   id: number;
 
   @Column()
-  title: string;
+  city_value: string;
 
   @Column()
-  description: string;
+  title_uz: string;
 
-  @Column({ nullable: true })
-  image: string;
+  @Column({ default: '' })
+  title_ru: string;
+
+  @Column({ default: '' })
+  title_en: string;
+
+  @Column()
+  adress_uz: string;
+
+  @Column({ default: '' })
+  adress_ru: string;
+
+  @Column({ default: '' })
+  adress_en: string;
+
+  @Column({ default: '' })
+  google_link: string;
+
+  @Column({ default: '' })
+  yandex_link: string;
+
+  @Column({ default: '' })
+  phone: string;
 
   @Column({ default: true })
   isActive: boolean;

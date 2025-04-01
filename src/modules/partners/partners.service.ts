@@ -72,7 +72,7 @@ export class PartnersService {
             : data.isActive,
         image: data.image || result.data?.image,
       });
-      
+
       return { status: 200, data: updated, message: 'Updated' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };
