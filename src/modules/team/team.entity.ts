@@ -15,7 +15,7 @@ export class Team {
   name_uz: string;
 
   @Column({ default: '' })
-  name_kr: string;
+  name_ru: string;
 
   @Column({ default: '' })
   name_en: string;
@@ -24,7 +24,7 @@ export class Team {
   job_uz: string;
 
   @Column({ default: '' })
-  job_kr: string;
+  job_ru: string;
 
   @Column({ default: '' })
   job_en: string;
