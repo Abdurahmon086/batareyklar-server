@@ -7,8 +7,8 @@ export class TelegramService {
   private chatId: string;
 
   constructor() {
-    this.botToken = '8011848756:AAFdGbBFtRE57gQPgYPD-GmzocIQVazIeII';
-    this.chatId = '2593736892';
+    this.botToken = '7548952603:AAEgGQ3S7XhlfcgB4gRgE71WOzaMujT2d80';
+    this.chatId = '-1002695465023';
   }
 
   async sendMessage(message: string): Promise<any> {
@@ -17,18 +17,19 @@ export class TelegramService {
     }
 
     const url = `https://api.telegram.org/bot${this.botToken}/sendMessage`;
-    console.log(`🔹 Telegramga so‘rov yuborilyapti: ${url}`);
-    
+
     try {
       const response = await axios.post(url, {
         chat_id: this.chatId,
         text: message,
       });
 
-      console.log('✅ Telegram javobi:', response.data);
       return response.data;
     } catch (error) {
-      console.error('❌ Telegramga xabar yuborishda xatolik:', error.response?.data || error.message);
+      console.error(
+        'Telegramga xabar yuborishda xatolik:',
+        error.response?.data || error.message,
+      );
       throw new Error('Xabar yuborishda muammo yuzaga keldi.');
     }
   }
