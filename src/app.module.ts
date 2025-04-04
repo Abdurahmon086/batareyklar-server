@@ -64,14 +64,14 @@ export class AppModule implements NestModule {
         { path: '/', method: RequestMethod.ALL },
         { path: '/telegram/*', method: RequestMethod.ALL },
         { path: '/auth/*', method: RequestMethod.ALL },
-        { path: '/hero', method: RequestMethod.GET },
-        { path: '/map', method: RequestMethod.GET },
-        { path: '/contribution', method: RequestMethod.GET },
-        { path: '/counter', method: RequestMethod.GET },
-        { path: '/feedback', method: RequestMethod.GET },
-        { path: '/news', method: RequestMethod.GET },
-        { path: '/team', method: RequestMethod.GET },
-        { path: '/partners', method: RequestMethod.GET },
+        { path: '/hero/*', method: RequestMethod.GET },
+        { path: '/map/*', method: RequestMethod.GET },
+        { path: '/contribution/*', method: RequestMethod.GET },
+        { path: '/counter/*', method: RequestMethod.GET },
+        { path: '/feedback/*', method: RequestMethod.GET },
+        { path: '/news/*', method: RequestMethod.GET },
+        { path: '/team/*', method: RequestMethod.GET },
+        { path: '/partners/*', method: RequestMethod.GET },
       )
       .forRoutes('*');
   }
