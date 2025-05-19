@@ -221,7 +221,9 @@ export class MapService {
   }
   async getAll(): Promise<IResponseInfo<Map[]>> {
     try {
-      const map = await this.mapRepository.find();
+      const map = await this.mapRepository.find({
+        order: { createdAt: 'ASC' },
+      });
       return { status: 200, data: map, message: 'Success' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };

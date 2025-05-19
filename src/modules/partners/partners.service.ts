@@ -14,7 +14,9 @@ export class PartnersService {
 
   async getAll(): Promise<IResponseInfo<Partners[]>> {
     try {
-      const partners = await this.partnersRepository.find();
+      const partners = await this.partnersRepository.find({
+        order: { createdAt: 'ASC' },
+      });
       return { status: 200, data: partners, message: 'Success' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };

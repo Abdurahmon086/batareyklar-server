@@ -14,7 +14,9 @@ export class TeamService {
 
   async getAll(): Promise<IResponseInfo<Team[]>> {
     try {
-      const team = await this.teamRepository.find();
+      const team = await this.teamRepository.find({
+        order: { createdAt: 'ASC' },
+      });
       return { status: 200, data: team, message: 'Success' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };

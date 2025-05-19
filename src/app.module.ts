@@ -16,13 +16,6 @@ import { CounterModule } from './modules/counter/counter.module';
 import { ContributionModule } from './modules/contribution/contribution.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { HeroService } from './modules/hero/hero.service';
-import { NewsService } from './modules/news/news.service';
-import { PartnersService } from './modules/partners/partners.service';
-import { FeedbackService } from './modules/feedback/feedback.service';
-import { TeamService } from './modules/team/team.service';
-import { CounterService } from './modules/counter/counter.service';
-import { ContributionService } from './modules/contribution/contribution.service';
 import { MapModule } from './modules/maps/maps.module';
 import { AuthMiddleware } from './middleware/auth.middleware';
 import { TelegramModule } from './modules/telegram/telegram.module';
@@ -35,7 +28,7 @@ import { ConfigModule } from '@nestjs/config';
       host: process.env.DB_HOST || 'localhost',
       port: parseInt(process.env.DB_PORT || '5432'),
       username: process.env.DB_USERNAME || 'postgres',
-      password: String(process.env.DB_PASSWORD || 'dilshod080401'),
+      password: String(process.env.DB_PASSWORD || '1230'),
       database: process.env.DB_NAME || 'batareykalar_uz',
       autoLoadEntities: true,
       synchronize: true,

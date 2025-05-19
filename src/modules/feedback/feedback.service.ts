@@ -14,7 +14,9 @@ export class FeedbackService {
 
   async getAll(): Promise<IResponseInfo<Feedback[]>> {
     try {
-      const feedback = await this.feedbackRepository.find();
+      const feedback = await this.feedbackRepository.find({
+        order: { createdAt: 'ASC' },
+      });
       return { status: 200, data: feedback, message: 'Success' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };

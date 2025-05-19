@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   CreateDateColumn,
+  In,
+  Index,
 } from 'typeorm';
 
 @Entity()
@@ -35,6 +37,7 @@ export class Feedback {
   @Column({ default: true })
   isActive: boolean;
 
+  @Index()
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 

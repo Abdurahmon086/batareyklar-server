@@ -13,7 +13,9 @@ export class HeroService {
 
   async getAll(): Promise<IResponseInfo<Hero[]>> {
     try {
-      const heroes = await this.heroRepository.find();
+      const heroes = await this.heroRepository.find({
+        order: { createdAt: 'ASC' },
+      });
       return { status: 200, data: heroes, message: 'Success' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };

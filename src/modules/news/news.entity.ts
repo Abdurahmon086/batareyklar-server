@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 
 @Entity()
@@ -35,6 +36,7 @@ export class News {
   @Column({ default: true })
   isActive: boolean;
 
+  @Index()
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 

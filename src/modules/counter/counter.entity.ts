@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   CreateDateColumn,
+  Index,
 } from 'typeorm';
 
 @Entity()
@@ -23,6 +24,7 @@ export class Counter {
   @Column()
   count: string;
 
+  @Index()
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 

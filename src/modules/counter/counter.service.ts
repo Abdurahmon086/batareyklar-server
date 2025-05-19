@@ -13,8 +13,10 @@ export class CounterService {
 
   async getAll(): Promise<IResponseInfo<Counter[]>> {
     try {
-      const Counter = await this.counterRepository.find();
-      return { status: 200, data: Counter, message: 'Success' };
+      const counters = await this.counterRepository.find({
+        order: { createdAt: 'ASC' },
+      });
+      return { status: 200, data: counters, message: 'Success' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };
     }

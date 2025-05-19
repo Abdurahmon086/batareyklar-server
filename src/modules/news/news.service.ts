@@ -15,7 +15,9 @@ export class NewsService {
 
   async getAll(): Promise<IResponseInfo<News[]>> {
     try {
-      const news = await this.newsRepository.find();
+      const news = await this.newsRepository.find({
+        order: { createdAt: 'ASC' },
+      });
       return { status: 200, data: news, message: 'Success' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };

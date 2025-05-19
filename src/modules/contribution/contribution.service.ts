@@ -13,7 +13,9 @@ export class ContributionService {
 
   async getAll(): Promise<IResponseInfo<Contribution[]>> {
     try {
-      const contribution = await this.contributionRepository.find();
+      const contribution = await this.contributionRepository.find({
+        order: { createdAt: 'ASC' },
+      });
       return { status: 200, data: contribution, message: 'Success' };
     } catch (error) {
       return { status: 500, data: null, message: error.message };
