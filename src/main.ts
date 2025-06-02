@@ -9,7 +9,7 @@ async function bootstrap() {
 
   // CORS sozlamalari
   app.enableCors({
-    origin: 'https://admin.batareykalar.uz',
+    origin: 'https://batareykalar.uz',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization',
   });
@@ -23,12 +23,12 @@ async function bootstrap() {
     { path: '/user', dir: 'user' },
   ];
 
-  staticConfig.forEach(config => {
+  staticConfig.forEach((config) => {
     const dirPath = join(__dirname, '..', 'uploads', config.dir);
     if (!existsSync(dirPath)) {
       mkdirSync(dirPath, { recursive: true });
     }
-    
+
     app.useStaticAssets(dirPath, {
       prefix: config.path,
     });
