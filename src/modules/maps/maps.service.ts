@@ -210,7 +210,7 @@ export class MapService {
 
       cityValues.forEach((city, index) => {
         if (cityMaps[index]) {
-          this.data.regions_data[city].cities = [cityMaps[index]];
+          this.data.regions_data[city].cities = cityMaps[index];
         }
       });
 
