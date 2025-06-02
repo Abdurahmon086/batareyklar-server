@@ -9,7 +9,7 @@ async function bootstrap() {
 
   // CORS sozlamalari
   app.enableCors({
-    origin: '*',
+    origin: 'https://admin.batareykalar.uz',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization',
   });
