@@ -9,10 +9,9 @@ async function bootstrap() {
 
   // CORS sozlamalari
   app.enableCors({
-    origin: 'https://batareykalar.uz',
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Authorization',
   });
 
   // Static fayllar uchun papkalar
@@ -24,12 +23,12 @@ async function bootstrap() {
     { path: '/user', dir: 'user' },
   ];
 
-  staticConfig.forEach((config) => {
+  staticConfig.forEach(config => {
     const dirPath = join(__dirname, '..', 'uploads', config.dir);
     if (!existsSync(dirPath)) {
       mkdirSync(dirPath, { recursive: true });
     }
-
+    
     app.useStaticAssets(dirPath, {
       prefix: config.path,
     });
