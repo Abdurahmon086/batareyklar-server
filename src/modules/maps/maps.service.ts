@@ -204,7 +204,7 @@ export class MapService {
       ];
       const cityMaps = await Promise.all(
         cityValues.map((city) =>
-          this.mapRepository.findOneBy({ city_value: city }),
+          this.mapRepository.find({ where: { city_value: city } }),
         ),
       );
 
